@@ -27,6 +27,8 @@ export const employeeSchema = z.object({
     .string()
     .min(0, "Địa chỉ không hợp lệ")
     .max(255, "Địa chỉ không được vượt quá 255 ký tự"),
+  role_id: z.string().uuid("Vai trò không hợp lệ"),
+  department_id: z.string().uuid("Mã phòng ban không hợp lệ"),
   salary: z.coerce.number().min(0, "Tiên lương không hợp lệ"),
   start_work: z.coerce.date(),
 });
