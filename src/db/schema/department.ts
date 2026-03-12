@@ -1,6 +1,6 @@
 import * as t from "drizzle-orm/pg-core";
 import { pgTable as table } from "drizzle-orm/pg-core";
-import { Employee } from "./emloyee";
+import { Employee } from "./employee";
 
 export const Department = table("department", {
   id: t.uuid("id").primaryKey().notNull().defaultRandom(),

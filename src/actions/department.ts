@@ -62,7 +62,7 @@ export const updateDepartment = async (formData: FormData) => {
 
     // 4. Cập nhật path
     revalidatePath("/department");
-    return { success: true, msg: "Cập nhật thành công" };
+    return { success: true, msg: "Cập nhật phòng ban thành công" };
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
   } catch (error: any) {
     return { success: false, msg: error.message };
