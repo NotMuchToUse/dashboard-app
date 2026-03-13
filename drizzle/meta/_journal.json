@@ -15,6 +15,13 @@
       "when": 1772976313088,
       "tag": "0001_daffy_prodigy",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "7",
+      "when": 1773407923175,
+      "tag": "0002_shallow_alex_power",
+      "breakpoints": true
     }
   ]
 }
