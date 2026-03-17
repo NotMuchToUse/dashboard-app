@@ -13,7 +13,10 @@ interface Photos {
   url: string;
 }
 
-// React Thuần
+// React thuần | xử lý ở client
+
+// Quy trình:
+// Tạo state để lưu --> Fetch --> Lấy data --> Set State --> Render data ra UI
 
 // const Page = () => {
 //   const [pokemon, setPokemon] = useState<Photos[]>([]);
@@ -63,7 +66,9 @@ interface Photos {
 //   );
 // }
 
-//  Next
+//  Next | Sử lý ở server
+// Quy trình:
+// Fetch --> Lấy data --> Render data đó ra UI
 
 const fetchFn = async () => {
   const res = await fetch(
@@ -128,3 +133,5 @@ export function Item({ title, thumbnailUrl, url }: Photos) {
     </div>
   );
 }
+
+// Next | Tạo tranform

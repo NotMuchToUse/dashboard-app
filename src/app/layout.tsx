@@ -1,3 +1,4 @@
+import { QueryProvider } from "./fetch-api-adv/tanstack";
 import "./globals.css";
 import type { ReactNode } from "react";
 
@@ -9,8 +10,8 @@ export const metadata = {
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
-      <body>
-        <main style={{ padding: "20px" }}>{children}</main>
+      <body className="p-10">
+        <QueryProvider>{children}</QueryProvider>
       </body>
     </html>
   );
