@@ -80,14 +80,14 @@ interface Todos {
 // Tanstack Query sẽ làm nhiệm vụ quản lý state fetching
 
 const fetchData = async (): Promise<Todos[]> => {
-  const res = await instance.get("/todos");
-
+  const res = await instance.get("/comments");
+  console.table(res.data);
   return res.data;
 };
 
 const Page = () => {
   const { data, isLoading, error } = useQuery<Todos[]>({
-    queryKey: ["todos"],
+    queryKey: ["comments"],
     queryFn: fetchData,
   });
 
