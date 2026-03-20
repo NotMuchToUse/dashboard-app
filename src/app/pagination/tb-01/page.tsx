@@ -20,8 +20,8 @@ const fetchPagination = async (page: number) => {
 const Page = async (props: { searchParams: SearchParams }) => {
   const searchParams = await props.searchParams;
   const page = Number(searchParams.page || 1);
-  const queryClient = new QueryClient();
 
+  const queryClient = new QueryClient();
   await queryClient.prefetchQuery({
     queryKey: ["comments", page],
     queryFn: () => fetchPagination(page),
