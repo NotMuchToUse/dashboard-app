@@ -26,13 +26,13 @@ const { data } = await axios.get("https://jsonplaceholder.typicode.com/posts");
 const total = data.length / 20;
 console.table(data);
 
-const RenFull = ({ page }: { page: number }) => {
+const RenFull = ({ page, userId }: { page: number; userId: string }) => {
   const totalPage = total;
   const getPag = pagService(page, totalPage);
 
   const { data, isPlaceholderData } = useQuery<Post[]>({
-    queryKey: ["posts", page],
-    queryFn: () => fetchPag(page),
+    queryKey: ["posts", page, userId],
+    queryFn: () => fetchPag(page, userId),
     placeholderData: (prev) => prev,
   });
   return (
