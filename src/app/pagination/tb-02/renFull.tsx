@@ -26,13 +26,23 @@ const { data } = await axios.get("https://jsonplaceholder.typicode.com/posts");
 const total = data.length / 20;
 console.table(data);
 
-const RenFull = ({ page, userId }: { page: number; userId: string }) => {
+const RenFull = ({
+  page,
+  userId,
+  sort,
+  order,
+}: {
+  page: number;
+  userId: string;
+  sort: string;
+  order: string;
+}) => {
   const totalPage = total;
   const getPag = pagService(page, totalPage);
 
   const { data, isPlaceholderData } = useQuery<Post[]>({
-    queryKey: ["posts", page, userId],
-    queryFn: () => fetchPag(page, userId),
+    queryKey: ["posts", page, userId, sort, order],
+    queryFn: () => fetchPag(page, userId, sort, order),
     placeholderData: (prev) => prev,
   });
   return (
@@ -78,7 +88,7 @@ const RenFull = ({ page, userId }: { page: number; userId: string }) => {
           {/* Sau */}
           <PaginationItem>
             <PaginationNext
-              href={`?page${page + 1}`}
+              href={`?=page${page + 1}`}
               className={
                 page >= totalPage ? "pointer-events-none opacity-50" : ""
               }

@@ -17,9 +17,9 @@ export const fetchPag = async (
       params: {
         _page: page,
         _limit: LIMIT,
-        userId: userId === "all" ? undefined : userId,
         _sort: sort,
         _order: order,
+        userId: userId === "all" ? undefined : userId,
       },
     },
   );
