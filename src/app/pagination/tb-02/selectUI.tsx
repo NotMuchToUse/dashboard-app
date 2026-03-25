@@ -88,6 +88,9 @@ export function FilterSortHeader() {
   };
   return (
     <div className="flex flex-wrap gap-4 mb-6 items-center">
+      <div>
+        <input type="text" />
+      </div>
       {/* Filter theo User ID */}
       <div className="flex flex-col gap-1.5">
         <label className="text-sm font-medium">Lọc theo tác giả</label>
