@@ -9,53 +9,15 @@ import {
 } from "@/components/ui/select";
 import { useRouter } from "next/navigation";
 import { useSearchParams } from "next/navigation";
-
-const userV = [
-  {
-    v: "1",
-    n: "User 1",
-  },
-  {
-    v: "2",
-    n: "User 2",
-  },
-  {
-    v: "3",
-    n: "User 3",
-  },
-  {
-    v: "4",
-    n: "User 4",
-  },
-  {
-    v: "5",
-    n: "User 5",
-  },
-  {
-    v: "6",
-    n: "User 6",
-  },
-  {
-    v: "7",
-    n: "User 7",
-  },
-  {
-    v: "8",
-    n: "User 8",
-  },
-  {
-    v: "9",
-    n: "User 9",
-  },
-  {
-    v: "10",
-    n: "User 10",
-  },
-];
+import { useState, useMemo, useCallback } from "react";
+import { debounceFn } from "./debounce";
+import { Input } from "@/components/ui/input";
+import { userV } from "./data";
 
 export function FilterSortHeader() {
   const router = useRouter();
   const params = useSearchParams();
+  const [localValue, setLocalValue] = useState("");
 
   const currUser = params.get("userId") || "all";
   const currSort = params.get("_sort") || "id";
@@ -86,10 +48,45 @@ export function FilterSortHeader() {
 
     router.push(`?${newParams.toString()}`, { scroll: false });
   };
+
+  const handleSearchChange = useCallback(
+    (newValue: string): void => {
+      const newParams = new URLSearchParams(params.toString());
+
+      if (newValue) {
+        newParams.set("userId", newValue);
+      } else {
+        newParams.delete("useId");
+      }
+
+      newParams.set("page", "1");
+
+      router.push(`?${newParams.toString()}`, { scroll: false });
+    },
+    [params, router],
+  );
+
+  const debounceInput = useMemo(
+    () => debounceFn(handleSearchChange, 300),
+    [handleSearchChange],
+  );
+
+  const onChangeInput = (
+    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => {
+    const val = e.target.value;
+    setLocalValue(val);
+    debounceInput(val);
+  };
+
   return (
     <div className="flex flex-wrap gap-4 mb-6 items-center">
       <div>
-        <input type="text" />
+        <Input
+          type="text"
+          value={localValue}
+          onChange={(e) => onChangeInput(e)}
+        />
       </div>
       {/* Filter theo User ID */}
       <div className="flex flex-col gap-1.5">
