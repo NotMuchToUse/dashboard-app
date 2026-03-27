@@ -13,6 +13,8 @@ import { useState, useMemo, useCallback } from "react";
 import { debounceFn } from "./debounce";
 import { Input } from "@/components/ui/input";
 import { userV } from "./data";
+import { Filter, Search, Sort } from "./interface";
+import { Label } from "@/components/ui/label";
 
 export function FilterSortHeader() {
   const router = useRouter();
@@ -81,45 +83,68 @@ export function FilterSortHeader() {
 
   return (
     <div className="flex flex-wrap gap-4 mb-6 items-center">
-      <div>
-        <Input
-          type="text"
-          value={localValue}
-          onChange={(e) => onChangeInput(e)}
-        />
-      </div>
+      {/* Search  */}
+      <SearchItem localValue={localValue} onChangeInput={onChangeInput} />
+
       {/* Filter theo User ID */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium">Lọc theo tác giả</label>
-        <Select value={currUser} onValueChange={handleFilterChange}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Chọn User" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Tất cả tác giả</SelectItem>
-            {userV.map((i) => (
-              <SelectItem value={i.v} key={i.v}>
-                {i.n}
-              </SelectItem>
-            ))}
-          </SelectContent>
-        </Select>
-      </div>
+      <FilterItem currUser={currUser} handleFilterChange={handleFilterChange} />
 
       {/* Sort dữ liệu */}
-      <div className="flex flex-col gap-1.5">
-        <label className="text-sm font-medium">Sắp xếp</label>
-        <Select value={sortUser} onValueChange={handleSortChange}>
-          <SelectTrigger className="w-[180px]">
-            <SelectValue placeholder="Sắp xếp theo" />
-          </SelectTrigger>
-          <SelectContent>
-            <SelectItem value="all">Sắp xếp</SelectItem>
-            <SelectItem value="id-asc">Mới nhất</SelectItem>
-            <SelectItem value="id-desc">Cũ nhất</SelectItem>
-          </SelectContent>
-        </Select>
-      </div>
+      <SortItem sortUser={sortUser} handleSortChange={handleSortChange} />
+    </div>
+  );
+}
+
+function SearchItem({ localValue, onChangeInput }: Search) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <Label className="text-sm font-medium">Search theo UserId: </Label>
+      <Input
+        type="text"
+        value={localValue}
+        onChange={(e) => onChangeInput(e)}
+        className=""
+        placeholder="Search..."
+      />
+    </div>
+  );
+}
+
+function FilterItem({ currUser, handleFilterChange }: Filter) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <Label className="text-sm font-medium">Lọc theo tác giả</Label>
+      <Select value={currUser} onValueChange={handleFilterChange}>
+        <SelectTrigger>
+          <SelectValue placeholder="Chọn User" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Tất cả tác giả</SelectItem>
+          {userV.map((i) => (
+            <SelectItem value={i.v} key={i.v}>
+              {i.n}
+            </SelectItem>
+          ))}
+        </SelectContent>
+      </Select>
+    </div>
+  );
+}
+
+function SortItem({ sortUser, handleSortChange }: Sort) {
+  return (
+    <div className="flex flex-col gap-1.5">
+      <Label className="text-sm font-medium">Sắp xếp</Label>
+      <Select value={sortUser} onValueChange={handleSortChange}>
+        <SelectTrigger>
+          <SelectValue placeholder="Sắp xếp theo" />
+        </SelectTrigger>
+        <SelectContent>
+          <SelectItem value="all">Sắp xếp</SelectItem>
+          <SelectItem value="id-asc">Mới nhất</SelectItem>
+          <SelectItem value="id-desc">Cũ nhất</SelectItem>
+        </SelectContent>
+      </Select>
     </div>
   );
 }

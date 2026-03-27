@@ -25,4 +25,21 @@ interface DynamicPagination {
   totalPage: number;
 }
 
-export type { Post, Params, Item, DynamicPagination };
+interface Search {
+  localValue: string;
+  onChangeInput: (
+    e: React.ChangeEvent<HTMLInputElement, HTMLInputElement>,
+  ) => void;
+}
+
+interface Filter {
+  currUser: string;
+  handleFilterChange: (newValue: string) => void;
+}
+
+interface Sort {
+  sortUser: string;
+  handleSortChange: (newValue: string) => void;
+}
+
+export type { Post, Params, Item, DynamicPagination, Search, Filter, Sort };
